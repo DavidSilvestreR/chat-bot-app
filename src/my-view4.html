@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/chat-bot/chat-bot.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view4">
@@ -19,6 +20,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 margin: 0px;
                 padding: 0px;
                 background: #fff;
+            }
+
+            chat-bot {
+                width: 100%;
+                --background-header: #8666ff;
+
+                --button-styles: {
+                    background: -webkit-linear-gradient(top, #ae85fe 0%, #8666ff 0%, #ae85fe 0%, #8666ff 100%);
+                    color: white;
+                    padding: 10px;
+                    font-size: 18px;
+                    width: auto;
+                    height: 40px;
+                    padding: 10px 30px;
+                    margin-bottom:10px;
+                }
+                --header-styles:{
+                    border-radius: 10px 10px 0px 0px;
+                }
             }
         </style>
 
@@ -37,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         </section>
         <section class="pilares">
-            <h2>Sorprende a tus visitantes con un chat activo las 24hs </h2>
+            <h2>Sorprende a tus visitantes con <br> un chat activo las 24hs </h2>
             <div class="container-pilares">
                 <div class="pilar">
                     <img src="/images/landing/settings.png" alt="">
@@ -72,11 +92,97 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
 
         </section>
+        <div class="demo">
+            <p>Demo</p>
+            <div class="container-demo">
+                <chat-bot title="Hi I'm a bot" nodes="[[nodes]]"></chat-bot>
+            </div>
+        </div>
     </template>
 
     <script>
         class MyView4 extends Polymer.Element {
             static get is() { return 'my-view4'; }
+            static get properties() {
+                return {
+                    nodes: {
+                        type: Node,
+                        value: Polymer.node
+                    }
+                }
+            }
+            setnodes() {
+                const node1 = new Polymer.Node();
+                const bienvenida2 = new Polymer.Node();
+                const ordenar = new Polymer.Node();
+                const confirmOrdenar = new Polymer.Node();
+                const comida = new Polymer.Node();
+                const bebida = new Polymer.Node();
+                const agua = new Polymer.Node();
+                const cerveza = new Polymer.Node();
+                const hamburguesa = new Polymer.Node();
+                const chilaquiles = new Polymer.Node();
+                const sopa = new Polymer.Node();
+                // set a las propiedades de node1
+                node1.question = "Hola! Yo soy un bot que te ayudará a ordenar tu comida. Te iré haciando preguntas y con los botones que te apareceran abajo, podras elegir la opción deseada. ¿Entendiste?";
+                node1.options.set('si', ordenar);
+                node1.options.set('no', bienvenida2);
+                node1.from = 'bot'
+                // set a las propiedades de bienvenida2
+                bienvenida2.question = "Soy un bot que te ayudará a elegir entre las bastas opciones que hay. Voy a ir poniendo preguntas en la pantalla y con los botones verdes de la parte superior tu iras contestastando a dichas preguntas. ¿Entendiste?";
+                bienvenida2.options.set('si', ordenar);
+                bienvenida2.options.set('no', node1);
+                bienvenida2.from = 'bot'
+                // set a las propiedades de ordenar
+                ordenar.question = "¿Que deseas ordenar?";
+                ordenar.options.set('nada', confirmOrdenar);
+                ordenar.options.set('comida', comida);
+                ordenar.options.set('bebida', bebida);
+                ordenar.from = 'bot'
+                // set a las propiedades de confirmOrdenar
+                confirmOrdenar.question = "¿En verdad no gutas ordenar nada?";
+                confirmOrdenar.options.set('no ordenar', node1);
+                confirmOrdenar.options.set('si ordenar', ordenar);
+                confirmOrdenar.from = 'bot'
+                // set propiedades de comida
+                comida.question = "Tenemos estas opciones. Elige una de ellas";
+                comida.options.set('hamburguesa', hamburguesa);
+                comida.options.set('chilaquiles', chilaquiles);
+                comida.options.set('sopa', sopa);
+                comida.from = 'bot';
+                // set propiedades de debida
+                bebida.question = "Tenemos estas opciones. Elige una de ellas";
+                bebida.options.set('cerveza', cerveza);
+                bebida.options.set('agua', agua);
+                bebida.from = 'bot';
+                // set propiedades de hamburguesa
+                hamburguesa.question = "Muy bien, en un momento traeremos tu hamburguesa. Gracias por tu preferencia";
+                hamburguesa.isFinal = true
+                hamburguesa.from = 'bot';
+                // set propiedades de sopa
+                sopa.question = "Muy bien, en un momento traeremos tu sopa. Gracias por tu preferencia";
+                sopa.isFinal = true
+                sopa.from = 'bot';
+                // set propiedades de chilaquiles
+                chilaquiles.question = "Muy bien, en un momento traeremos tu chilaquiles. Gracias por tu preferencia";
+                chilaquiles.isFinal = true
+                chilaquiles.from = 'bot';
+                // set propiedades de agua
+                agua.question = "Muy bien, en un momento traeremos tu agua. Gracias por tu preferencia";
+                agua.isFinal = true
+                agua.from = 'bot';
+                // set propiedades de cerveza
+                cerveza.question = "Muy bien, en un momento traeremos tu cerveza. Gracias por tu preferencia";
+                cerveza.isFinal = true
+                cerveza.from = 'bot';
+                let maynodeArray = [node1]
+                this.set('nodes', maynodeArray)
+            }
+            connectedCallback() {
+                super.connectedCallback();
+                this.setnodes();
+            }
+
         }
 
         window.customElements.define(MyView4.is, MyView4);

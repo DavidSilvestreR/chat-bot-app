@@ -21,13 +21,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
-
 <link rel="lazy-import" href="my-view1.html">
 <link rel="lazy-import" href="my-view2.html">
 <link rel="lazy-import" href="my-view3.html">
 <link rel="lazy-import" href="my-view4.html">
 <link rel="lazy-import" href="my-view404.html">
-
+<script src="/models/Node.js"></script>
 <dom-module id="my-app">
   <template>
     <style>
@@ -38,10 +37,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
-      app-drawer-layout{
-        background:#fff;
-        
+      app-drawer-layout {
+        background: #fff;
+
       }
+
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
@@ -62,65 +62,77 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: black;
         font-weight: bold;
       }
-      header{
+
+      header {
         text-align: center;
         background: -webkit-linear-gradient(top, #ae85fe 0%, #8666ff 0%, #ae85fe 0%, #8666ff 100%);
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .15);
-        padding-top:10px;
+        padding-top: 10px;
       }
-      header nav{
+
+      header nav {
         justify-content: center;
         align-content: center;
         position: relative;
       }
-      header nav a{
+
+      header nav a.link {
         position: absolute;
         right: 20px;
-        margin-top:20px;
-        color:white;
+        margin-top: 20px;
+        color: white;
         text-decoration: none;
       }
-      nav.menu img{
-        width:60px;
-        
+
+      nav.menu img {
+        width: 60px;
+
       }
-      footer{
+
+      footer {
         left: 0;
-        bottom:0;
+        bottom: 0;
         width: 100%;
-        background-color:#2e303c;
+        background-color: #2e303c;
         color: white;
         text-align: center;
-        
+
+      }
+      footer .icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:20px 50px;
+      }
+      footer .icon img{ 
+        width:60px;
+      }
+      footer .icon p{ 
+        font-size: 25px;
+        margin:0px;
+        text-transform: uppercase;
+        padding: 0px;
       }
     </style>
 
-    <app-location
-        route="{{route}}"
-        url-space-regex="^[[rootPath]]">
+    <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
     </app-location>
 
-    <app-route
-        route="{{route}}"
-        pattern="[[rootPath]]:page"
-        data="{{routeData}}"
-        tail="{{subroute}}">
+    <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
     </app-route>
 
     <app-drawer-layout fullbleed narrow="{{narrow}}">
       <header>
         <nav class="menu ">
-          <img src="../images/landing/chaticon.png" alt="chatbot">
-          <a href="[[rootPath]]view1">Configura tu Chatbot</a>
+          <a href="[[rootPath]]view4">
+            <img src="../images/landing/chaticon.png" alt="chatbot">
+          </a>
+          <a class="link" href="[[rootPath]]view1">Configura tu Chatbot</a>
         </nav>
       </header>
       <!-- Main content -->
-      <app-header-layout >
-        <iron-pages
-            selected="[[page]]"
-            attr-for-selected="name"
-            fallback-selection="view404"
-            role="main">
+      <app-header-layout>
+        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
           <my-view1 name="view1"></my-view1>
           <my-view2 name="view2"></my-view2>
           <my-view3 name="view3"></my-view3>
@@ -128,7 +140,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
-      <footer>footer</footer>
+      <footer>
+        <div class="icon">
+          <img src="/images/landing/chaticon.png" alt="">
+          <p>Ironchat</p>
+        </div>
+      </footer>
     </app-drawer-layout>
   </template>
 
@@ -176,10 +193,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Load page import on demand. Show 404 page if fails
         const resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
         Polymer.importHref(
-            resolvedPageUrl,
-            null,
-            this._showPage404.bind(this),
-            true);
+          resolvedPageUrl,
+          null,
+          this._showPage404.bind(this),
+          true);
       }
 
       _showPage404() {
