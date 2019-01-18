@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="create-chatbot">
+    <template>
+        <style>
+        </style>
+        <section>
+            <h1>[[response]]</h1>
+        </section>
+    </template>
+    <script>
+        class CreateChatbot extends Polymer.Element{
+            static get is(){ return 'create-chatbo'}
+            static get properties(){
+                return{
+                     response:{
+                         type:String,
+                         value:"hola mundo"
+                     }
+                }
+            }
+        }
+        window.customElements(CreateChatbot.is,CreateChatbot)
+    </script>
+</dom-module>

@@ -1,0 +1,202 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<dom-module id="my-view3">
+  <template>
+    <style>
+      .title-cuestion {
+        display: flex;
+        justify-content: end;
+      }
+
+      .card {
+        background: #fff;
+      }
+    </style>
+    <section>
+      <h1>[[response]]</h1>
+      <div class="container-elements">
+        <div class="form">
+          <div class="title-form">
+            <paper-input id="nameNode" required auto-validate error-message="El campo es obligatorio" value="" label="Name node"></paper-input>
+            <paper-input id="question" required auto-validate error-message="El campo es obligatorio" value="" label="Pregunta"></paper-input>
+          </div>
+          <div class="response-node">
+            <div class="title-cuestion">
+              <p>Respuestas:</p>
+              <paper-button on-tap="_addAnswer">+</paper-button>
+              <paper-button on-tap="_lessAnswer">-</paper-button>
+            </div>
+            <dom-repeat items={{answers}}>
+              <div class="custion" id="containerRespuestas">
+                <template>
+                  <paper-input required auto-validate error-message="El campo es obligatorio" class="values-input"
+                    value="" label="respuesta"></paper-input>
+                </template>
+              </div>
+            </dom-repeat>
+          </div>
+          <div class="button-finish">
+            <button on-click="saveNode">Guardar Nodo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Nodes Chatbot</h2>
+      <div class="container-nodes">
+        <dom-repeat items={{onjectRepeat}} as="node">
+          <template>
+            <div class="card">
+              <p class="title">[[node.name]]</p>
+              <p>Pregunta: [[node.question]]</p>
+              <ul>
+                <dom-repeat items={{node.options}} as="option">
+                  <template>
+                    <li>
+                      [[option]]
+                      <paper-dropdown-menu name={{node.name}} dataoption={{index}} on-selected-item-changed="_patchnode" label="Ligar" noink
+                        no-animations>
+                        <paper-listbox slot="dropdown-content" attr-for-selected="data-lang">
+                          <dom-repeat items="{{onjectRepeat}}" as="nodesname">
+                            <template>
+                              <paper-item data-lang$="[[nodesname.name]]">{{nodesname.name}}</paper-item>
+                            </template>
+                          </dom-repeat>
+                        </paper-listbox>
+                      </paper-dropdown-menu>
+                    </li>
+                  </template>
+                </dom-repeat>
+              </ul>
+            </div>
+          </template>
+        </dom-repeat>
+      </div>
+    </section>
+  </template>
+
+  <script>
+    class MyView3 extends Polymer.Element {
+      static get is() { return 'my-view3'; }
+      static get properties() {
+        return {
+          response: {
+            type: String,
+            value: "hola mundo"
+          },
+          answers: {
+            type: Array,
+            value: ["1"]
+          },
+          nodeObject: {
+            type: Array,
+            value: []
+          },
+          onjectRepeat: {
+            type: Array,
+            value: []
+          },
+          question: {
+            type: Array,
+            value: ["123", "123123"]
+          },
+          keyObject:{
+            type:Array,
+            value:[]
+          },
+          finalObjeto:{
+            type:Array,
+            value:[]
+          }
+        }
+      }
+      saveNode() {
+        let nameNode = this.shadowRoot.querySelectorAll('.values-input'), validate, questions = [],
+          name = this.$.nameNode, questionString = this.$.question
+        name.validate()
+        questionString.validate()
+        for (let key of nameNode) {
+          if (key.validate() != true) {
+            validate = false
+            break
+          } else {
+            validate = true
+          }
+        }
+        if (validate && name.validate() && questionString.validate()) {
+          for (let key of nameNode) {
+            key.value
+            questions.push([key.value])
+          }
+          let arraypush = []
+          arraypush[name.value] = Object.assign({
+            [name.value]: name.value,
+            question: questionString.value,
+            options: questions
+          })
+         
+          this.push("nodeObject", arraypush)
+          this.push("keyObject",Object.keys(arraypush))
+          let objectnew = this.keyObject.map((currentValue, index, array) => {
+            return {
+              name: currentValue,
+              ...this.nodeObject[index][currentValue]
+            }
+
+          });
+        
+          let mivar=this.nodeObject
+          let objeto
+          for(let index in mivar){
+            Object.assign(this.finalObjeto,this.nodeObject[index])
+          }
+          console.log(this.finalObjeto)
+          this.set("onjectRepeat",objectnew)
+        }
+        name.value = ""
+        questionString.value = ""
+        this.set("answers", ["1"])
+      }
+      _patchnode(event) {
+        const element=event.detail.value
+        let nameObjetc = event.model.__templateInfo.nodeList[3].name
+        let index = event.model.__templateInfo.nodeList[3].dataoption
+        let modifiObject = ((val) => { return val })(...this.nodeObject);
+        modifiObject[nameObjetc].options[index][1]=element.getAttribute('data-lang');
+        console.log(modifiObject)
+      }
+      _doneId(value) {
+        return value
+      }
+      _addAnswer() {
+        this.push('answers', "newCuestion")
+      }
+      _lessAnswer() {
+        let myArray = this.answers
+        let newarray;
+        if (myArray.length > 1) {
+          this.answers.pop()
+        }
+        this.set('answers', new Array(this.answers.length))
+      }
+
+    }
+    window.customElements.define(MyView3.is, MyView3);
+  </script>
+</dom-module>

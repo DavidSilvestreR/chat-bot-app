@@ -1,0 +1,178 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+
+<!-- shared styles for all views -->
+<dom-module id="shared-styles">
+  <template>
+    <style>
+      * {
+        font-family: 'Roboto', sans-serif;
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+      }
+
+      .card {
+        margin: 24px;
+        padding: 16px;
+        color: #757575;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+
+      .circle {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        text-align: center;
+        color: #555;
+        border-radius: 50%;
+        background: #ddd;
+        font-size: 30px;
+        line-height: 64px;
+      }
+
+      section.section-slide {
+        padding-top: 30px;
+        padding-bottom: 40px;
+        padding-left: 20px;
+        perspective: 20px;
+        color: white;
+        background: -webkit-linear-gradient(top, #ae85fe 0%, #8666ff 0%, #ae85fe 0%, #8666ff 100%);
+      }
+
+      section.section-slide h1 {
+        text-align: center;
+        font-size: 50px;
+        margin: 0 0 8px;
+        font-weight: 600;
+      }
+
+      .contaner-text {
+        text-align: center;
+        font-size: 18px;
+      }
+
+      section.section-slide .button-containe {
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      section.section-slide .button-containe a {
+        background-color: #fff;
+        color: #8666ff;
+        padding: 10px;
+        font-size: 18px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 40px;
+        border: 1px solid transparent;
+      }
+
+      .img-conatainer img {
+        width: 100%;
+      }
+
+      section.pilares {
+        padding: 20px 15px;
+        text-align: center;
+      }
+
+      section.pilares h2 {
+        padding: 20px 15px;
+        text-align: center;
+        color: #181b3a;
+      }
+
+      section.pilares .pilar {
+        margin-top: 20px;
+      }
+
+      section.pilares .pilar h2 {
+        margin-top: 20px;
+        color: #181b3a;
+      }
+
+      section.pilares .pilar .title {
+        margin-top: 15px;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 17px;
+        color: #181b3a;
+      }
+
+      section.pilares .pilar .description {
+        font-size: 14px;
+        color: #637282;
+      }
+
+      section.clientes {
+        background: #f9f7ff;
+        text-align: center;
+        padding: 20px 15px;
+      }
+
+      section.clientes img {
+        width: 100%;
+      }
+
+      section.clientes h2 {
+        background: #f9f7ff;
+        color: #181b3a;
+      }
+
+      section.clientes .text {
+        font-size: 15px;
+        text-align: justify;
+        color: #637282;
+        margin-bottom: 20px;
+      }
+
+      section.clientes .button-containe a {
+        background: -webkit-linear-gradient(top, #ae85fe 0%, #8666ff 0%, #ae85fe 0%, #8666ff 100%);
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 40px;
+        border: 1px solid transparent;
+      }
+
+      @media only screen and (min-width: 600px) {
+        section.section-slide {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .img-conatainer{
+          text-align: center;
+        }
+        .img-conatainer img {
+          width: 80%;
+        }
+        section.pilares{
+          padding:50px 20px;
+        }
+        section.pilares .container-pilares{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+
+
+      }
+    </style>
+  </template>
+</dom-module>
