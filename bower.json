@@ -20,7 +20,8 @@
     "paper-button": "PolymerElements/paper-button#2.1.3",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#2.1.0",
     "paper-listbox": "PolymerElements/paper-listbox#2.1.1",
-    "paper-item": "PolymerElements/paper-item#2.1.1"
+    "paper-item": "PolymerElements/paper-item#2.1.1",
+    "chat-bot": "jorgeme0996/chat-bot"
   },
   "resolutions": {
     "polymer": "^2.0.0"
